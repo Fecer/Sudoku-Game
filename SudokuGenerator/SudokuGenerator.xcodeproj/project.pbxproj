@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		C253D79923B30EB100A0BA3B /* SudokuGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SudokuGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		C253D79C23B30EB100A0BA3B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		C253D7A323B3305500A0BA3B /* Sudoku.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sudoku.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				C253D79C23B30EB100A0BA3B /* main.cpp */,
+				C253D7A323B3305500A0BA3B /* Sudoku.h */,
 			);
 			path = SudokuGenerator;
 			sourceTree = "<group>";
