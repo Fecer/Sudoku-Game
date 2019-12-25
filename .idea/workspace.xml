@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3429112b-d420-4972-85fe-c6be8bac2ee0" name="Default Changelist" comment="" />
+    <list default="true" id="3429112b-d420-4972-85fe-c6be8bac2ee0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Sudoku-Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Sudoku-Game.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -20,7 +31,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/SudokuGenerator" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -44,7 +61,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1577194858044</updated>
-      <workItem from="1577194862949" duration="2175000" />
+      <workItem from="1577194862949" duration="4502000" />
     </task>
     <servers />
   </component>
@@ -56,9 +73,13 @@
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="1520" y="397" key="#Notifications/0.23.2560.1417@0.23.2560.1417" timestamp="1577238863044" />
-    <state x="963" y="455" key="SettingsEditor" timestamp="1577240860104">
+    <state x="1620" y="750" key="FileChooserDialogImpl" timestamp="1577243559804">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
-    <state x="963" y="455" key="SettingsEditor/0.23.2560.1417@0.23.2560.1417" timestamp="1577240860104" />
+    <state x="1620" y="750" key="FileChooserDialogImpl/0.23.2560.1417@0.23.2560.1417" timestamp="1577243559804" />
+    <state x="963" y="455" key="SettingsEditor" timestamp="1577243580220">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="963" y="455" key="SettingsEditor/0.23.2560.1417@0.23.2560.1417" timestamp="1577243580220" />
   </component>
 </project>
