@@ -20,6 +20,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -43,7 +44,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1577194858044</updated>
-      <workItem from="1577194862949" duration="1129000" />
+      <workItem from="1577194862949" duration="2175000" />
     </task>
     <servers />
   </component>
@@ -55,5 +56,9 @@
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="1520" y="397" key="#Notifications/0.23.2560.1417@0.23.2560.1417" timestamp="1577238863044" />
+    <state x="963" y="455" key="SettingsEditor" timestamp="1577240860104">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="963" y="455" key="SettingsEditor/0.23.2560.1417@0.23.2560.1417" timestamp="1577240860104" />
   </component>
 </project>
