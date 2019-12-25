@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C253D79D23B30EB100A0BA3B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C253D79C23B30EB100A0BA3B /* main.cpp */; };
+		C29EC88D23B34EEE00760240 /* Sudoku.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C29EC88C23B34EEE00760240 /* Sudoku.cpp */; };
+		C29EC89123B34F3900760240 /* endingGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C29EC88F23B34F3900760240 /* endingGenerator.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +28,9 @@
 		C253D79923B30EB100A0BA3B /* SudokuGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SudokuGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		C253D79C23B30EB100A0BA3B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C253D7A323B3305500A0BA3B /* Sudoku.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sudoku.h; sourceTree = "<group>"; };
+		C29EC88C23B34EEE00760240 /* Sudoku.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sudoku.cpp; sourceTree = "<group>"; };
+		C29EC88E23B34F2400760240 /* endingGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = endingGenerator.h; sourceTree = "<group>"; };
+		C29EC88F23B34F3900760240 /* endingGenerator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = endingGenerator.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +65,9 @@
 			children = (
 				C253D79C23B30EB100A0BA3B /* main.cpp */,
 				C253D7A323B3305500A0BA3B /* Sudoku.h */,
+				C29EC88C23B34EEE00760240 /* Sudoku.cpp */,
+				C29EC88E23B34F2400760240 /* endingGenerator.h */,
+				C29EC88F23B34F3900760240 /* endingGenerator.cpp */,
 			);
 			path = SudokuGenerator;
 			sourceTree = "<group>";
@@ -121,6 +129,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C29EC88D23B34EEE00760240 /* Sudoku.cpp in Sources */,
+				C29EC89123B34F3900760240 /* endingGenerator.cpp in Sources */,
 				C253D79D23B30EB100A0BA3B /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

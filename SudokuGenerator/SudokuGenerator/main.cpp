@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include "Sudoku.h"
+#include "endingGenerator.h"
 using namespace std;
 
 #define MAX 1000000
@@ -29,11 +30,19 @@ int main(int argc, const char * argv[])
     
     if(oprationType == "-c")    //生成终局
     {
-        int num = atoi(argv[2]);
+        //确认输入的确实是数字
+        int num;
+        try{
+            num = atoi(argv[2]);
+        }
+        catch (invalid_argument e){
+            cout << "Not a Number" << endl;
+            return 0;
+        }
         
         if(num >= MIN && num <= MAX)    //在合理范围内，生成num个终局
         {
-            
+            eGenerator eg(num);
         }
         else
         {
@@ -44,7 +53,7 @@ int main(int argc, const char * argv[])
     {
         string path = argv[2];
         
-        
+        solve
     }
     else    //参数正确性合法检测
     {

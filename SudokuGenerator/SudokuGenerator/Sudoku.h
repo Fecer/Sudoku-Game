@@ -12,7 +12,12 @@
 
 class Sudoku
 {
-    
+private:
+    int grid[10][10];
+public:
+    Sudoku();
+    ~Sudoku();
 };
+
 
 #endif /* Sudoku_h */
