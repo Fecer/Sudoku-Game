@@ -15,6 +15,27 @@ using namespace std;
 #define MAX 1000000
 #define MIN 1
 
+void generateEnding(const int num)
+{
+    eGenerator eg(num);
+    Sudoku s;
+    int times;
+    
+    times = (num / 72) + 1;   //计算需要多少个不同的首行
+    
+    for(int i = 0; i < times; i++)
+    {
+        //s.
+        eg.permutation();   //生成下一个首行排列
+        
+    }
+    
+}
+
+void solveSudoku()
+{
+    
+}
 
 int main(int argc, const char * argv[])
 {
@@ -40,20 +61,19 @@ int main(int argc, const char * argv[])
             return 0;
         }
         
-        if(num >= MIN && num <= MAX)    //在合理范围内，生成num个终局
-        {
-            eGenerator eg(num);
-        }
-        else
+        //判断数字是否越界
+        if (num < MIN || num > MAX)
         {
             cout << "Illegal result quantity\n" << endl;
         }
+        else
+            generateEnding(num);
     }
     else if(oprationType == "-s")   //求解数独
     {
         string path = argv[2];
         
-        solve
+//        solve
     }
     else    //参数正确性合法检测
     {

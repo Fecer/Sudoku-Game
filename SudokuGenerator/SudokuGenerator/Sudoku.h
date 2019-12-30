@@ -13,7 +13,8 @@
 class Sudoku
 {
 private:
-    int grid[10][10];
+    std::string output; //输出用string
+//    int firstRow[9];    //首行元素
 public:
     Sudoku();
     ~Sudoku();
