@@ -11,17 +11,31 @@
 #include <iostream>
 using namespace std;
 
-eGenerator::eGenerator(const int &n)    //构造函数，需要num个终局
+//构造函数，需要num个终局
+eGenerator::eGenerator()
 {
-    num = n;
-    //初始化firstRow
-    for(int i = 0; i < 9; i++)
+    //初始化firstRow,首位为6
+    firstRow[0] = 6;
+    for(int i = 1; i < 6; i++)
     {
-        this->firstRow[i] = i + 1;
+        firstRow[i] = i;
+    }
+    for(int i = 6; i < 9; i++)
+    {
+        firstRow[i] = i + 1;
     }
 }
 
-int* eGenerator::permutation()  //生成下一个首行元素
+//生成下一个首行元素
+int* eGenerator::permutation()
 {
-    next_permutation(this->firstRow, this->firstRow + 9);
+    next_permutation(this->firstRow + 1, this->firstRow + 9);
+    
+    return firstRow;
+}
+
+//获取首行
+int* eGenerator::getFirstRow()
+{
+    return this->firstRow;
 }

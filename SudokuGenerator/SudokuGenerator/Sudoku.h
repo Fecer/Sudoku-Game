@@ -9,15 +9,22 @@
 #ifndef Sudoku_h
 #define Sudoku_h
 
+#include <string>
+using namespace std;
 
 class Sudoku
 {
 private:
-    std::string output; //输出用string
-//    int firstRow[9];    //首行元素
+    string output;          //输出用string
+    int displace[9];        //每行向右位移量
+    int cnt;                //已经生成的数量
+    int num;                //需要生成的数量
 public:
-    Sudoku();
-    ~Sudoku();
+    Sudoku(const int &);
+    void rowToSqr(int firstRow[]);              //由首行生成方块
+    void exchange(int firstRow[]);              //交换得到更多终局
+    void prntIntoFile();                        //输出到文件
+    bool isEnough();                            //结果是否足够
 };
 
 

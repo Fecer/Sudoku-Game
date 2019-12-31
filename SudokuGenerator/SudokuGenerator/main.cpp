@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <string>
+#include <ctime>
 #include "Sudoku.h"
 #include "endingGenerator.h"
 using namespace std;
@@ -17,24 +18,37 @@ using namespace std;
 
 void generateEnding(const int num)
 {
-    eGenerator eg(num);
-    Sudoku s;
-    int times;
+    eGenerator eg;
+    Sudoku s(num);
+    int times;  //不同的首行数量
     
-    times = (num / 72) + 1;   //计算需要多少个不同的首行
+    time_t start, stop; //计时
+    start = time(0);    //开始计时
     
+    times = (num / 36) + 1;   //计算需要多少个不同的首行
     for(int i = 0; i < times; i++)
     {
-        //s.
-        eg.permutation();   //生成下一个首行排列
+        if(s.isEnough())  //数量足够
+            break;
+        // 1. get FR
+        // 2. 1R -> 9R
+        s.rowToSqr(eg.getFirstRow());       // 1 row to 9 rows
+
+        // 3. exchange
+        s.exchange(eg.getFirstRow());
         
+        eg.permutation();   //生成下一个首行排列
     }
     
+    s.prntIntoFile();   //写入文件
+    
+    stop = time(0);
+    cout << difftime(stop, start) << "seconds" << endl;
 }
 
 void solveSudoku()
 {
-    
+
 }
 
 int main(int argc, const char * argv[])
@@ -46,9 +60,9 @@ int main(int argc, const char * argv[])
         cout << "Wrong argument quantity!" << endl;
         return 0;
     }
- 
+
     string oprationType = argv[1];  //查看操作类型
-    
+
     if(oprationType == "-c")    //生成终局
     {
         //确认输入的确实是数字
@@ -60,7 +74,7 @@ int main(int argc, const char * argv[])
             cout << "Not a Number" << endl;
             return 0;
         }
-        
+
         //判断数字是否越界
         if (num < MIN || num > MAX)
         {
@@ -72,7 +86,7 @@ int main(int argc, const char * argv[])
     else if(oprationType == "-s")   //求解数独
     {
         string path = argv[2];
-        
+
 //        solve
     }
     else    //参数正确性合法检测
@@ -80,6 +94,7 @@ int main(int argc, const char * argv[])
         cout << "Illegal input" << endl;
         return 0;
     }
-    
+ 
+//    generateEnding(1000000);
     return 0;
 }
