@@ -9,22 +9,43 @@
 #ifndef Sudoku_h
 #define Sudoku_h
 
+#include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
 using namespace std;
+
+struct info
+{
+    int cnt;
+    int reg[10][10];    //保存对应位的数字可能性
+    int all = (1 << 9) - 1;   //0111111111
+    int res[10][10];    //结果
+    int num[1 << 10];   //num[1024]
+};
 
 class Sudoku
 {
 private:
-    string output;          //输出用string
+    string outputE;         //输出终局用string
+    string outputR;         //输出结果用string
     int displace[9];        //每行向右位移量
     int cnt;                //已经生成的数量
     int num;                //需要生成的数量
+    string path;            //谜题路径
+    bool goOn;              //是否完成读入
+    struct info curInfo;    //用于解题的变量
 public:
+    Sudoku(const string &);
     Sudoku(const int &);
     void rowToSqr(int firstRow[]);              //由首行生成方块
     void exchange(int firstRow[]);              //交换得到更多终局
     void prntIntoFile();                        //输出到文件
     bool isEnough();                            //结果是否足够
+    void solve();                               //解数独
+    void dfs(const int &);
+    void finishSolve();                         //读到文件结尾
+    bool isFinish();                            //是否结束解题
 };
 
 

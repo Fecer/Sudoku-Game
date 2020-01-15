@@ -9,6 +9,8 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <fstream>
+#include <sstream>
 #include "Sudoku.h"
 #include "endingGenerator.h"
 using namespace std;
@@ -46,9 +48,14 @@ void generateEnding(const int num)
     cout << difftime(stop, start) << "seconds" << endl;
 }
 
-void solveSudoku()
+void solveSudoku(string path)
 {
-
+    Sudoku result(path);
+    
+    while(result.isFinish() != true)
+    {
+        result.solve();
+    }
 }
 
 int main(int argc, const char * argv[])
@@ -78,23 +85,35 @@ int main(int argc, const char * argv[])
         //判断数字是否越界
         if (num < MIN || num > MAX)
         {
+            //越界
             cout << "Illegal result quantity\n" << endl;
         }
         else
-            generateEnding(num);
+            generateEnding(num);    //生成
     }
     else if(oprationType == "-s")   //求解数独
     {
         string path = argv[2];
-
-//        solve
+        ifstream inFile;
+        
+        inFile.open(path);
+        if(inFile)  //打开成功，文件存在
+        {
+            //solve
+            solveSudoku(path);
+        }
+        else    //路径文件不存在
+        {
+            cout << "Invalid puzzlefile path!" << endl;
+        }
+        
     }
     else    //参数正确性合法检测
     {
         cout << "Illegal input" << endl;
         return 0;
     }
- 
-//    generateEnding(1000000);
+
+//    generateEnding(200000);
     return 0;
 }

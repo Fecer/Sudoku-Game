@@ -7,8 +7,6 @@
 //
 
 #include "endingGenerator.h"
-#include <algorithm>
-#include <iostream>
 using namespace std;
 
 //构造函数，需要num个终局

@@ -8,7 +8,11 @@
 
 #ifndef endingGenerator_h
 #define endingGenerator_h
+
+#include <algorithm>
+#include <iostream>
 #include "Sudoku.h"
+using namespace std;
 
 class eGenerator
 {
