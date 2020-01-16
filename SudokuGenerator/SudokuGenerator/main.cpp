@@ -42,7 +42,7 @@ void generateEnding(const int num)
         eg.permutation();   //生成下一个首行排列
     }
     
-    s.prntIntoFile();   //写入文件
+    s.prntIntoFileE();   //写入文件
     
     stop = time(0);
     cout << difftime(stop, start) << "seconds" << endl;
@@ -51,11 +51,14 @@ void generateEnding(const int num)
 void solveSudoku(string path)
 {
     Sudoku result(path);
+    time_t start, stop; //计时
+    start = time(0);    //开始计时
     
-    while(result.isFinish() != true)
-    {
-        result.solve();
-    }
+    result.solve();     //解数独
+    result.prntIntoFileS();  //写入文件
+    
+    stop = time(0);
+    cout << difftime(stop, start) << "seconds" << endl;
 }
 
 int main(int argc, const char * argv[])
@@ -95,7 +98,7 @@ int main(int argc, const char * argv[])
     {
         string path = argv[2];
         ifstream inFile;
-        
+
         inFile.open(path);
         if(inFile)  //打开成功，文件存在
         {
@@ -106,7 +109,7 @@ int main(int argc, const char * argv[])
         {
             cout << "Invalid puzzlefile path!" << endl;
         }
-        
+
     }
     else    //参数正确性合法检测
     {
@@ -114,6 +117,7 @@ int main(int argc, const char * argv[])
         return 0;
     }
 
-//    generateEnding(200000);
+//    generateEnding(3);
+//    solveSudoku("/Users/fever/Desktop/ending.txt");
     return 0;
 }

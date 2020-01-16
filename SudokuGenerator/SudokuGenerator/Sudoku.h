@@ -28,9 +28,9 @@ class Sudoku
 {
 private:
     string outputE;         //输出终局用string
-    string outputR;         //输出结果用string
+//    string outputR;       //输出结果用string
     int displace[9];        //每行向右位移量
-    int cnt;                //已经生成的数量
+    int cntAlready;         //已经生成的数量
     int num;                //需要生成的数量
     string path;            //谜题路径
     bool goOn;              //是否完成读入
@@ -40,12 +40,14 @@ public:
     Sudoku(const int &);
     void rowToSqr(int firstRow[]);              //由首行生成方块
     void exchange(int firstRow[]);              //交换得到更多终局
-    void prntIntoFile();                        //输出到文件
+    void prntIntoFileE();                       //输出到文件(生成终局）
+    void prntIntoFileS();                       //输出到文件(解数独）
     bool isEnough();                            //结果是否足够
     void solve();                               //解数独
     void dfs(const int &);
     void finishSolve();                         //读到文件结尾
     bool isFinish();                            //是否结束解题
+    void init();                                //初始化相关变量
 };
 
 

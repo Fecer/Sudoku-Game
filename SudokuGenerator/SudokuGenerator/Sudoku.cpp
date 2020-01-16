@@ -13,17 +13,17 @@ Sudoku::Sudoku(const int &n)
 {
     //初始化displace
     int stndrd[9] = {0, 3, 6, 1, 4, 7, 2, 5, 8};
-    memcpy(this->displace, stndrd, sizeof(stndrd));
     
-    num = n;
-    cnt = 0;
+    memcpy(this->displace, stndrd, sizeof(stndrd));
+    this->num = n;
+    this->cntAlready = 0;
 }
 
 Sudoku::Sudoku(const string &p)
 {
     this->path = p;
     this->goOn = true;
-    this->cnt = 0;
+    this->curInfo.cnt = 0;
 }
 
 //由displace + firstRow生成整个数独
@@ -42,7 +42,7 @@ void Sudoku::rowToSqr(int firstRow[])
         }
     }
     outputE += '\n'; //两个数独间的空行
-    this->cnt++;    //计数
+    this->cntAlready++;    //计数
     
 }
 
@@ -54,7 +54,7 @@ void Sudoku::exchange(int firstRow[])
     {
         for(int j = 0; j < 6; j++)
         {
-            if(this->num == this->cnt)  //数量足够
+            if(this->num == this->cntAlready)  //数量足够
                 break;
             next_permutation(this->displace + 3, this->displace + 6);
             this->rowToSqr(firstRow);   //根据新的displace再写入
@@ -64,25 +64,34 @@ void Sudoku::exchange(int firstRow[])
     
 }
 
-//打印查看
-void Sudoku::prntIntoFile()
+//打印查看终局
+void Sudoku::prntIntoFileE()
 {
-//    cout << this->output;
     ofstream fs;
     
-    cout << "开始生成：" << endl;
-    fs.open("/Users/fever/Desktop/ending.txt");
+    cout << "---「开始生成终局」---" << endl;
+    fs.open("/Users/fever/Desktop/answer.txt");
     fs << this->outputE;
     fs.close();
+    cout << "共" << cntAlready << "个终局" << endl;
+    cout << "---「完成生成终局」---" << endl;
+}
+
+void Sudoku::prntIntoFileS()
+{
+    ofstream fs;
     
-    cout << cnt << endl;
-    
+    cout << "---「开始输出结果」---" << endl;
+    fs.open("/Users/fever/Desktop/answer.txt");
+    fs << this->outputE;
+    fs.close();
+    cout << "---「完成输出结果」---" << endl;
 }
 
 //判断是否达到需求上限
 bool Sudoku::isEnough()
 {
-    if(this->cnt == this->num)
+    if(this->cntAlready == this->num)
         return true;
     return false;
 }
@@ -99,16 +108,11 @@ void Sudoku::solve()
     if(inFile.peek() == EOF)    //空文件
     {
         cout << "Empty file!" << endl;
+        this->finishSolve();
+        return;
     }
     
-    //init全部可能
-    for(int i = 1; i <= 9; i++)
-    {
-        for(int j = 1; j <= 9; j++)
-        {
-            this->curInfo.reg[i][j] = this->curInfo.all;
-        }
-    }
+    this->init();   //初始化
     //计算1 - 1023每个数（二进制）有几个1
     for(int i = 1; i <= 1023; i++)
     {
@@ -121,10 +125,10 @@ void Sudoku::solve()
         int input;
         int j;
         
-        inFile >> curStr; //读入一行
+        inFile.getline(curStr, 18); //读入一行
         
-        if(curStr[0] == '\n')
-            continue;
+        if(curStr[0] == '\0')   //数独间空行
+            goto cal;
         
         //存入
         for(int t = 0; t < 18; t++)
@@ -141,33 +145,28 @@ void Sudoku::solve()
                     this->curInfo.res[i][j] = curStr[t] - '0';
                     
                     for(int k = 1; k <= 9; k++)     //行
-                    {
                         this->curInfo.reg[k][j] &= ( (1 << 9) - 1 - (1 << (input - 1)) );
-                    }
                     for(int k = 1; k <= 9; k++)     //列
-                    {
                         this->curInfo.reg[i][k] &= ( (1 << 9) - 1 - (1 << (input - 1)) );
-                    }
                     for(int k = (i - 1) / 3 * 3 + 1; k <= (i - 1) / 3 * 3 + 3; k++)     //小九宫格
-                    {
                         for(int l = (j - 1) / 3 * 3 + 1; l <= (j - 1) / 3 * 3 + 3; l++)
-                        {
                             this->curInfo.reg[k][l] &= ( (1 << 9) - 1 - (1 << (input - 1)) );
-                        }
-                    }
-                    this->cnt++;
-                }
-                if(i <= 9)
-                    i++;
-                else
-                {
-                    i = 1;
-                    this->dfs(81 - this->cnt);
-                    this->cnt = 0;
+                    this->curInfo.cnt++;
                 }
             }
         }
+ cal:   if(i <= 9)
+            i++;
+        else
+        {
+            i = 1;
+            
+            this->dfs(81 - this->curInfo.cnt);
+            this->init();   //初始化
+        }
     }
+    
+    return;
     
 }
 
@@ -181,16 +180,16 @@ void Sudoku::dfs(const int &dep)
             for(int j = 1; j <= 9; j++)
             {
 //                cout << this->curInfo.res[i][j] << " ";
-                this->outputR += (this->curInfo.res[i][j] + '0');
+                this->outputE += (this->curInfo.res[i][j] + '0');
                 
                 if(j != 9)
-                    outputR += ' ';
+                    outputE += ' ';
                 else
-                    outputR += '\n';
+                    outputE += '\n';
             }
 //            cout<<endl;
         }
-        outputR += '\n';
+        outputE += '\n';
     }
     
     int b[10][10];  //暂存结果a
@@ -201,8 +200,11 @@ void Sudoku::dfs(const int &dep)
     {
         for(int j = 1; j <= 9; j++)
         {
-            if(!this->curInfo.res[i][j] && !this->curInfo.reg[i][j])   //如果结果a数组里和id数组里这一位都不是0，筛查下一位
+            if(!this->curInfo.res[i][j] && !this->curInfo.reg[i][j])   //无结果
+            {
+                cout << "No result!" << endl;
                 return ;
+            }
             
             b[i][j] = this->curInfo.res[i][j];    //暂存
             c[i][j] = this->curInfo.reg[i][j];
@@ -263,4 +265,26 @@ bool Sudoku::isFinish()
 void Sudoku::finishSolve()
 {
     this->goOn = false;
+    
+    return;
+}
+
+//初始化
+void Sudoku::init()
+{
+    this->curInfo.cnt = 0;
+    memset(this->curInfo.reg, 0, sizeof(this->curInfo.reg));
+    memset(this->curInfo.res, 0, sizeof(this->curInfo.res));
+    this->curInfo.all = (1 << 9) - 1;
+    
+    //init全部可能
+    for(int i = 1; i <= 9; i++)
+    {
+        for(int j = 1; j <= 9; j++)
+        {
+            this->curInfo.reg[i][j] = this->curInfo.all;
+        }
+    }
+    
+    return;
 }
