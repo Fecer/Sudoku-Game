@@ -28,13 +28,14 @@ class Sudoku
 {
 private:
     string outputE;         //输出终局用string
-//    string outputR;       //输出结果用string
     int displace[9];        //每行向右位移量
     int cntAlready;         //已经生成的数量
     int num;                //需要生成的数量
     string path;            //谜题路径
     bool goOn;              //是否完成读入
     struct info curInfo;    //用于解题的变量
+    int ID;                 //答案编号
+    bool hasOneAnswer;      //已经输出一个答案
 public:
     Sudoku(const string &);
     Sudoku(const int &);

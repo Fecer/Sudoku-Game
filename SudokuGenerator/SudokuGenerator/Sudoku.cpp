@@ -24,6 +24,7 @@ Sudoku::Sudoku(const string &p)
     this->path = p;
     this->goOn = true;
     this->curInfo.cnt = 0;
+    this->ID = 1;
 }
 
 //由displace + firstRow生成整个数独
@@ -163,6 +164,9 @@ void Sudoku::solve()
             
             this->dfs(81 - this->curInfo.cnt);
             this->init();   //初始化
+            
+            //答案编号
+            this->ID++;
         }
     }
     
@@ -172,6 +176,8 @@ void Sudoku::solve()
 
 void Sudoku::dfs(const int &dep)
 {
+    if(this->hasOneAnswer == true)
+        return;
     //输出结果数独
     if(!dep)    //if(dep == 0)
     {
@@ -179,7 +185,6 @@ void Sudoku::dfs(const int &dep)
         {
             for(int j = 1; j <= 9; j++)
             {
-//                cout << this->curInfo.res[i][j] << " ";
                 this->outputE += (this->curInfo.res[i][j] + '0');
                 
                 if(j != 9)
@@ -187,24 +192,21 @@ void Sudoku::dfs(const int &dep)
                 else
                     outputE += '\n';
             }
-//            cout<<endl;
         }
         outputE += '\n';
+        this->hasOneAnswer = true;
     }
     
-    int b[10][10];  //暂存结果a
-    int c[10][10];  //暂存id
+    int b[10][10] = {0};  //暂存结果a
+    int c[10][10] = {0};  //暂存id
     int x = 0, y = 0, z = 9;
     
     for(int i = 1; i <= 9; i++)
     {
         for(int j = 1; j <= 9; j++)
         {
-            if(!this->curInfo.res[i][j] && !this->curInfo.reg[i][j])   //无结果
-            {
-                cout << "No result!" << endl;
+            if(!this->curInfo.res[i][j] && !this->curInfo.reg[i][j])   //死胡同
                 return ;
-            }
             
             b[i][j] = this->curInfo.res[i][j];    //暂存
             c[i][j] = this->curInfo.reg[i][j];
@@ -223,7 +225,7 @@ void Sudoku::dfs(const int &dep)
     
     for(int i = 0; i < 9; i++)
     {
-        if(this->curInfo.reg[x][y] & (1 << i) )  //
+        if(this->curInfo.reg[x][y] & (1 << i) )  
         {
             this->curInfo.res[x][y] = i + 1;
             for(int k = 1; k <= 9; k++)
@@ -272,6 +274,7 @@ void Sudoku::finishSolve()
 //初始化
 void Sudoku::init()
 {
+    this->hasOneAnswer = false;
     this->curInfo.cnt = 0;
     memset(this->curInfo.reg, 0, sizeof(this->curInfo.reg));
     memset(this->curInfo.res, 0, sizeof(this->curInfo.res));
