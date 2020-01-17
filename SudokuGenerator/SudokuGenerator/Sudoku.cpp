@@ -9,13 +9,26 @@
 #include "Sudoku.h"
 using namespace std;
 
+template <typename Dtype>
+unsigned int __builtin_popcount(Dtype u)
+{
+	u = (u & 0x55555555) + ((u >> 1) & 0x55555555);
+	u = (u & 0x33333333) + ((u >> 2) & 0x33333333);
+	u = (u & 0x0F0F0F0F) + ((u >> 4) & 0x0F0F0F0F);
+	u = (u & 0x00FF00FF) + ((u >> 8) & 0x00FF00FF);
+	u = (u & 0x0000FFFF) + ((u >> 16) & 0x0000FFFF);
+	return u;
+}//wishchin!!!  
+
+
+
 Sudoku::Sudoku(const int &n)
 {
     //初始化displace
     int stndrd[9] = {0, 3, 6, 1, 4, 7, 2, 5, 8};
     
     memcpy(this->displace, stndrd, sizeof(stndrd));
-    this->num = n;
+    this->numNeed = n;
     this->cntAlready = 0;
 }
 
@@ -23,7 +36,7 @@ Sudoku::Sudoku(const string &p)
 {
     this->path = p;
     this->goOn = true;
-    this->curInfo.cnt = 0;
+    this->cnt = 0;
     this->ID = 1;
 }
 
@@ -55,7 +68,7 @@ void Sudoku::exchange(int firstRow[])
     {
         for(int j = 0; j < 6; j++)
         {
-            if(this->num == this->cntAlready)  //数量足够
+            if(this->numNeed == this->cntAlready)  //数量足够
                 break;
             next_permutation(this->displace + 3, this->displace + 6);
             this->rowToSqr(firstRow);   //根据新的displace再写入
@@ -74,8 +87,8 @@ void Sudoku::prntIntoFileE()
     fs.open("/Users/fever/Desktop/answer.txt");
     fs << this->outputE;
     fs.close();
-    cout << "共" << cntAlready << "个终局" << endl;
-    cout << "---「完成生成终局」---" << endl;
+	//cout << "共" << cntAlready << "个终局" << endl;
+    //cout << "---「完成生成终局」---" << endl;
 }
 
 void Sudoku::prntIntoFileS()
@@ -92,7 +105,7 @@ void Sudoku::prntIntoFileS()
 //判断是否达到需求上限
 bool Sudoku::isEnough()
 {
-    if(this->cntAlready == this->num)
+    if(this->cntAlready == this->numNeed)
         return true;
     return false;
 }
@@ -117,7 +130,7 @@ void Sudoku::solve()
     //计算1 - 1023每个数（二进制）有几个1
     for(int i = 1; i <= 1023; i++)
     {
-        this->curInfo.num[i] = __builtin_popcount(i); //有几个1
+        this->num[i] = __builtin_popcount(i); //有几个1
     }
     
     int i = 1;
@@ -143,16 +156,16 @@ void Sudoku::solve()
                 {
                     j = t / 2 + 1;
                     
-                    this->curInfo.res[i][j] = curStr[t] - '0';
+                    this->res[i][j] = curStr[t] - '0';
                     
                     for(int k = 1; k <= 9; k++)     //行
-                        this->curInfo.reg[k][j] &= ( (1 << 9) - 1 - (1 << (input - 1)) );
+                        this->reg[k][j] &= ( (1 << 9) - 1 - (1 << (input - 1)) );
                     for(int k = 1; k <= 9; k++)     //列
-                        this->curInfo.reg[i][k] &= ( (1 << 9) - 1 - (1 << (input - 1)) );
+                        this->reg[i][k] &= ( (1 << 9) - 1 - (1 << (input - 1)) );
                     for(int k = (i - 1) / 3 * 3 + 1; k <= (i - 1) / 3 * 3 + 3; k++)     //小九宫格
                         for(int l = (j - 1) / 3 * 3 + 1; l <= (j - 1) / 3 * 3 + 3; l++)
-                            this->curInfo.reg[k][l] &= ( (1 << 9) - 1 - (1 << (input - 1)) );
-                    this->curInfo.cnt++;
+                            this->reg[k][l] &= ( (1 << 9) - 1 - (1 << (input - 1)) );
+                    this->cnt++;
                 }
             }
         }
@@ -162,7 +175,7 @@ void Sudoku::solve()
         {
             i = 1;
             
-            this->dfs(81 - this->curInfo.cnt);
+            this->dfs(81 - this->cnt);
             this->init();   //初始化
             
             //答案编号
@@ -185,7 +198,7 @@ void Sudoku::dfs(const int &dep)
         {
             for(int j = 1; j <= 9; j++)
             {
-                this->outputE += (this->curInfo.res[i][j] + '0');
+                this->outputE += (this->res[i][j] + '0');
                 
                 if(j != 9)
                     outputE += ' ';
@@ -205,17 +218,17 @@ void Sudoku::dfs(const int &dep)
     {
         for(int j = 1; j <= 9; j++)
         {
-            if(!this->curInfo.res[i][j] && !this->curInfo.reg[i][j])   //死胡同
+            if(!this->res[i][j] && !this->reg[i][j])   //死胡同
                 return ;
             
-            b[i][j] = this->curInfo.res[i][j];    //暂存
-            c[i][j] = this->curInfo.reg[i][j];
+            b[i][j] = this->res[i][j];    //暂存
+            c[i][j] = this->reg[i][j];
             
-            if(!this->curInfo.res[i][j])    //如果结果a数组该位是0
+            if(!this->res[i][j])    //如果结果a数组该位是0
             {
-                if(this->curInfo.num[ this->curInfo.reg[i][j] ] < z)   //寻找id[i][j]中的最小值
+                if(this->num[ this->reg[i][j] ] < z)   //寻找id[i][j]中的最小值
                 {
-                    z = this->curInfo.num[ this->curInfo.reg[i][j] ];
+                    z = this->num[ this->reg[i][j] ];
                     x = i;  //记录最小值位置
                     y = j;
                 }
@@ -225,18 +238,18 @@ void Sudoku::dfs(const int &dep)
     
     for(int i = 0; i < 9; i++)
     {
-        if(this->curInfo.reg[x][y] & (1 << i) )  
+        if(this->reg[x][y] & (1 << i) )  
         {
-            this->curInfo.res[x][y] = i + 1;
+            this->res[x][y] = i + 1;
             for(int k = 1; k <= 9; k++)
-                this->curInfo.reg[k][y] &= ( (1 << 9) - 1 - (1 << i));
+                this->reg[k][y] &= ( (1 << 9) - 1 - (1 << i));
             for(int k = 1; k <= 9; k++)
-                this->curInfo.reg[x][k] &= ( (1 << 9) - 1 - (1 << i));
+                this->reg[x][k] &= ( (1 << 9) - 1 - (1 << i));
             for(int k = (x - 1) / 3 * 3 + 1; k <= (x - 1) / 3 * 3 + 3; k++)
             {
                 for(int l = (y - 1) / 3 * 3 + 1; l <= (y - 1) / 3 * 3 + 3; l++)
                 {
-                    this->curInfo.reg[k][l] &= (( 1 << 9 ) - 1 -( 1 << i ));
+                    this->reg[k][l] &= (( 1 << 9 ) - 1 -( 1 << i ));
                 }
             }
             this->dfs(dep - 1);
@@ -244,8 +257,8 @@ void Sudoku::dfs(const int &dep)
             {
                 for(int j = 1; j <= 9; j++)
                 {
-                    this->curInfo.reg[i][j] = c[i][j];
-                    this->curInfo.res[i][j] = b[i][j];
+                    this->reg[i][j] = c[i][j];
+                    this->res[i][j] = b[i][j];
                 }
             }
         }
@@ -275,17 +288,17 @@ void Sudoku::finishSolve()
 void Sudoku::init()
 {
     this->hasOneAnswer = false;
-    this->curInfo.cnt = 0;
-    memset(this->curInfo.reg, 0, sizeof(this->curInfo.reg));
-    memset(this->curInfo.res, 0, sizeof(this->curInfo.res));
-    this->curInfo.all = (1 << 9) - 1;
+    this->cnt = 0;
+    memset(this->reg, 0, sizeof(this->reg));
+    memset(this->res, 0, sizeof(this->res));
+    this->all = (1 << 9) - 1;
     
     //init全部可能
     for(int i = 1; i <= 9; i++)
     {
         for(int j = 1; j <= 9; j++)
         {
-            this->curInfo.reg[i][j] = this->curInfo.all;
+            this->reg[i][j] = this->all;
         }
     }
     
