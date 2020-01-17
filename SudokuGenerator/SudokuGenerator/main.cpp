@@ -118,6 +118,6 @@ int main(int argc, const char * argv[])
 //    }
 
 //    generateEnding(3);
-    solveSudoku("/Users/fever/Desktop/problem.txt");
+//    solveSudoku("/Users/fever/Desktop/problem.txt");
     return 0;
 }

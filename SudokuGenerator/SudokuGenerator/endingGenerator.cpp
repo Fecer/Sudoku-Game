@@ -9,7 +9,7 @@
 #include "endingGenerator.h"
 using namespace std;
 
-//构造函数，需要num个终局
+//构造函数，需要个终局
 eGenerator::eGenerator()
 {
     //初始化firstRow,首位为6

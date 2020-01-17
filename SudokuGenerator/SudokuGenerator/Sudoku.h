@@ -13,16 +13,9 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
-
-struct info
-{
-    int cnt;
-    int reg[10][10];    //保存对应位的数字可能性
-    int all = (1 << 9) - 1;   //0111111111
-    int res[10][10];    //结果
-    int num[1 << 10];   //num[1024]
-};
 
 class Sudoku
 {
@@ -30,10 +23,17 @@ private:
     string outputE;         //输出终局用string
     int displace[9];        //每行向右位移量
     int cntAlready;         //已经生成的数量
-    int num;                //需要生成的数量
+    int numNeed;            //需要生成的数量
     string path;            //谜题路径
     bool goOn;              //是否完成读入
-    struct info curInfo;    //用于解题的变量
+  
+	//用于解题的变量
+	int cnt;
+	int reg[10][10];    //保存对应位的数字可能性
+	int all = (1 << 9) - 1;   //0111111111
+	int res[10][10];    //结果
+	int num[1 << 10];   //num[1024]
+
     int ID;                 //答案编号
     bool hasOneAnswer;      //已经输出一个答案
 public:
