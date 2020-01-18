@@ -117,7 +117,7 @@ int main(int argc, const char * argv[])
 //        return 0;
 //    }
 
-//    generateEnding(3);
+    generateEnding(1000000);
 //    solveSudoku("/Users/fever/Desktop/problem.txt");
     return 0;
 }

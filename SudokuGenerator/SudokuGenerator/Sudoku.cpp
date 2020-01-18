@@ -52,11 +52,17 @@ void Sudoku::rowToSqr(int firstRow[])
             if(j != bgn + 8)
                 outputE += ' ';
             else
-                outputE += '\n';
+            {
+                if(this->cntAlready != (this->numNeed - 1) || i != 8)
+                    outputE += '\n';
+            }
         }
     }
-    outputE += '\n'; //两个数独间的空行
     this->cntAlready++;    //计数
+    if(this->cntAlready == this->numNeed)
+        return;
+    outputE += '\n'; //两个数独间的空行
+    
     
 }
 
