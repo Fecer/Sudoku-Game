@@ -63,7 +63,6 @@ void solveSudoku(string path)
 
 int main(int argc, const char * argv[])
 {
-    
 //    //参数数量合法检测
 //    if(argc != 3)
 //    {
@@ -72,7 +71,6 @@ int main(int argc, const char * argv[])
 //    }
 //
 //    string oprationType = argv[1];  //查看操作类型
-//
 //    if(oprationType == "-c")    //生成终局
 //    {
 //        //确认输入的确实是数字
@@ -116,8 +114,7 @@ int main(int argc, const char * argv[])
 //        cout << "Illegal input" << endl;
 //        return 0;
 //    }
-
     generateEnding(1000000);
-//    solveSudoku("/Users/fever/Desktop/problem.txt");
+//	  solveSudoku("/Users/fever/Desktop/problem-1.txt");
     return 0;
 }

@@ -89,23 +89,23 @@ void Sudoku::prntIntoFileE()
 {
     ofstream fs;
     
-    cout << "---「开始生成终局」---" << endl;
+    cout << "---[Start Generating Endings]---" << endl;
     fs.open("/Users/fever/Desktop/answer.txt");
     fs << this->outputE;
     fs.close();
 	//cout << "共" << cntAlready << "个终局" << endl;
-    //cout << "---「完成生成终局」---" << endl;
+    cout << "---[End Generating Endings]---" << endl;
 }
 
 void Sudoku::prntIntoFileS()
 {
     ofstream fs;
     
-    cout << "---「开始输出结果」---" << endl;
+    cout << "---[Start Output]---" << endl;
     fs.open("/Users/fever/Desktop/answer.txt");
     fs << this->outputE;
     fs.close();
-    cout << "---「完成输出结果」---" << endl;
+    cout << "---[End Output]---" << endl;
 }
 
 //判断是否达到需求上限
