@@ -49,21 +49,12 @@ void Sudoku::rowToSqr(int firstRow[])
         for(int j = bgn; j < bgn + 9; j++)
         {
             outputE += (firstRow[(j % 9)] + '0');    //错位放入
-            if(j != bgn + 8)
-                outputE += ' ';
-            else
-            {
-                if(this->cntAlready != (this->numNeed - 1) || i != 8)
-                    outputE += '\n';
-            }
+
+            (j != bgn + 8) ? outputE += ' ' : outputE += '\n';
         }
     }
     this->cntAlready++;    //计数
-    if(this->cntAlready == this->numNeed)
-        return;
     outputE += '\n'; //两个数独间的空行
-    
-    
 }
 
 //交换行
@@ -89,17 +80,22 @@ void Sudoku::prntIntoFileE()
 {
     ofstream fs;
     
+    this->outputE.pop_back();
+    this->outputE.pop_back();
+    
     cout << "---[Start Generating Endings]---" << endl;
     fs.open("/Users/fever/Desktop/answer.txt");
     fs << this->outputE;
     fs.close();
-	//cout << "共" << cntAlready << "个终局" << endl;
     cout << "---[End Generating Endings]---" << endl;
 }
 
 void Sudoku::prntIntoFileS()
 {
     ofstream fs;
+    
+    this->outputE.pop_back();
+    this->outputE.pop_back();
     
     cout << "---[Start Output]---" << endl;
     fs.open("/Users/fever/Desktop/answer.txt");

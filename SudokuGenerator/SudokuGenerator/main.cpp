@@ -114,7 +114,7 @@ int main(int argc, const char * argv[])
 //        cout << "Illegal input" << endl;
 //        return 0;
 //    }
-    generateEnding(1000000);
-//	  solveSudoku("/Users/fever/Desktop/problem-1.txt");
+      generateEnding(1000000);
+//	  solveSudoku("/Users/fever/Desktop/problem.txt");
     return 0;
 }
