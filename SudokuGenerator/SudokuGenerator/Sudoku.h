@@ -37,8 +37,8 @@ private:
     int ID;                 //答案编号
     bool hasOneAnswer;      //已经输出一个答案
 public:
-    Sudoku(const string &);
-    Sudoku(const int &);
+    Sudoku(const string &p);
+    Sudoku(const int &n);
     void rowToSqr(int firstRow[]);              //由首行生成方块
     void exchange(int firstRow[]);              //交换得到更多终局
     void prntIntoFileE();                       //输出到文件(生成终局）

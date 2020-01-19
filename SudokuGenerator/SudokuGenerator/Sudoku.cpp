@@ -38,6 +38,14 @@ Sudoku::Sudoku(const string &p)
     this->goOn = true;
     this->cnt = 0;
     this->ID = 1;
+    this->init();
+    
+    for(int i = 0; i < 9; i++)
+        this->displace[i] = 0;
+    this->numNeed = 0;
+    this->cntAlready = 0;
+    for(int i = 0; i < 1024; i++)
+        this->num[i] = 0;
 }
 
 //由displace + firstRow生成整个数独
