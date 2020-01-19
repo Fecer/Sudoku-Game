@@ -84,7 +84,7 @@ void Sudoku::prntIntoFileE()
     this->outputE.pop_back();
     
     cout << "---[Start Generating Endings]---" << endl;
-    fs.open("/Users/fever/Desktop/answer.txt");
+    fs.open("./Sudoku.txt");
     fs << this->outputE;
     fs.close();
     cout << "---[End Generating Endings]---" << endl;
@@ -98,7 +98,7 @@ void Sudoku::prntIntoFileS()
     this->outputE.pop_back();
     
     cout << "---[Start Output]---" << endl;
-    fs.open("/Users/fever/Desktop/answer.txt");
+    fs.open("./Sudoku.txt");
     fs << this->outputE;
     fs.close();
     cout << "---[End Output]---" << endl;
