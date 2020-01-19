@@ -144,7 +144,7 @@ void Sudoku::solve()
         inFile.getline(curStr, 18); //读入一行
         
         if(curStr[0] == '\0')   //数独间空行
-            goto cal;
+            continue;
         
         //存入
         for(int t = 0; t < 18; t++)
@@ -171,9 +171,9 @@ void Sudoku::solve()
                 }
             }
         }
- cal:   if(i <= 9)
-            i++;
-        else
+        
+        i++;
+        if(i == 10)
         {
             i = 1;
             
@@ -305,4 +305,9 @@ void Sudoku::init()
     }
     
     return;
+}
+
+string Sudoku::getOutputE()
+{
+    return outputE;
 }

@@ -49,6 +49,9 @@ public:
     void finishSolve();                         //读到文件结尾
     bool isFinish();                            //是否结束解题
     void init();                                //初始化相关变量
+    
+    //单元测试用
+    string getOutputE();
 };
 
 
